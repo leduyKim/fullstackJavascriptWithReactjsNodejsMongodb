@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Nguyen Van hello",
+        "phone": "088888888888",
+        "permission" : 1
+    },
+    {
+        "id": 2,
+        "name": "Nguyen Van B",
+        "phone": "099999999999",
+        "permission" : 2
+    },
+    {
+        "id": 3,
+        "name": "Nguyen Van C",
+        "phone": "077777777777",
+        "permission" : 3
+    },
+    {
+        "id": 4,
+        "name": "Nguyen Van D",
+        "phone": "088888888888",
+        "permission" : 1
+    },
+    {
+        "id": 5,
+        "name": "Nguyen Van E",
+        "phone": "088888888888",
+        "permission" : 2
+    }
+]
