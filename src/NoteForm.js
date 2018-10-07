@@ -27,28 +27,20 @@ class NoteForm extends Component {
         item.content = this.state.contentNote;
         this.props.addDataStore(item);
     }
-    /*
- * jQuery autoResize (textarea auto-resizer)
- * @copyright James Padolsey http://james.padolsey.com
- * @version 1.04
- */
-
-
 
 render() {
     return (
         <div className="col-4">
             <h3>Edit Content Note</h3>
-            <form  >
-                <input type="search" placeholder="Search" />
+            <form>
                 <div className="form-group">
                     <label htmlFor="titleNote">Title Note</label>
-                    <input required onChange={(event) => this.isChange(event)} type="text" className="form-control" name="titleNote" id="titleNote" aria-describedby="titleNoteId" placeholder="enter title note please" />
+                    <input defaultValue={this.props.infoForm.title} onChange={(event) => this.isChange(event)} type="text" className="form-control" name="titleNote" id="titleNote" aria-describedby="titleNoteId" placeholder="enter title note please" />
                     <small id="titleNoteId" className="form-text text-muted">enter title note please!</small>
                 </div>
                 <div className="form-group">
                     <label htmlFor="contentNote">Content Note</label>
-                    <textarea required onChange={(event) => this.isChange(event)} className="form-control" name="contentNote" id="contentNote" defaultValue={""} />
+                    <textarea required onChange={(event) => this.isChange(event)} className="form-control" name="contentNote" id="contentNote" defaultValue={this.props.infoForm.content} />
                 </div>
                 <button type="reset" onClick={this.addData} className="btn btn-primary btn-block" style={{ borderRadius: 20 }}>Save</button>
             </form>
@@ -66,7 +58,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         addDataStore: (item) => {
             dispatch({
                 type: 'ADD_DATA',
-                item
+                item: item
             })
         }
     }
