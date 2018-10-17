@@ -10,7 +10,6 @@ class NoteForm extends Component {
             contentNote: '',
             id: ''
         }
-        this.addData = this.addData.bind(this);
     }
 
     componentWillMount() {
@@ -48,19 +47,29 @@ class NoteForm extends Component {
         }
     }
 
+    editTitle = () => {
+        if(this.props.isAdd) {
+            return <h3>Add Content Note</h3>
+        }
+        else 
+            return <h3>Edit Content Note</h3>
+    }
+
 render() {
     return (
         <div className="col-4">
-            <h3>Edit Content Note</h3>
+            {this.editTitle()}
             <form>
-                <div className="form-group">
-                    <label htmlFor="titleNote">Title Note</label>
-                    <input defaultValue={this.props.infoForm.title} onChange={(event) => this.isChange(event)} type="text" className="form-control" name="titleNote" id="titleNote" aria-describedby="titleNoteId" placeholder="enter title note please" />
-                    <small id="titleNoteId" className="form-text text-muted">enter title note please!</small>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="contentNote">Content Note</label>
-                    <textarea required onChange={(event) => this.isChange(event)} className="form-control" name="contentNote" id="contentNote" defaultValue={this.props.infoForm.content} />
+                <div>
+                    <div className="form-group">
+                        <label htmlFor="titleNote">Title Note</label>
+                        <input defaultValue={this.props.infoForm.title} onChange={(event) => this.isChange(event)} type="text" className="form-control" name="titleNote" id="titleNote" aria-describedby="titleNoteId" placeholder="enter title note please" />
+                        <small id="titleNoteId" className="form-text text-muted">enter title note please!</small>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="contentNote">Content Note</label>
+                        <textarea required onChange={(event) => this.isChange(event)} className="form-control" name="contentNote" id="contentNote" defaultValue={this.props.infoForm.content} />
+                    </div>
                 </div>
                 <button type="reset" onClick={() => this.addData()} className="btn btn-primary btn-block" style={{ borderRadius: 20 }}>Save</button>
             </form>
@@ -70,7 +79,8 @@ render() {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    editItem: state.hasForm.dataElement
+    editItem: state.hasForm.dataElement,
+    isAdd: state.hasForm.isAdd
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {

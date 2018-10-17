@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 
-export default class Header extends Component {
+class Header extends Component {
+    
+    viewAddddNote = (event) => {
+        event.preventDefault();
+        this.props.viewAddddNote();
+        this.props.viewTitle();
+    }
+
     render() {
         return (
             <nav className="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
@@ -14,9 +22,37 @@ export default class Header extends Component {
                         <li className="nav-item">
                             <a className="nav-link" href="/">Lists Note</a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link" onClick={event => this.viewAddddNote(event)} >Add Note</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
         )
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        isAddNote: state.addDataReducer.isAddNote
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        viewAddddNote: () => {
+            dispatch({
+                type: 'CHANGE_EDIT_STATUS',
+            })
+        },
+        viewTitle: () => {
+            dispatch({
+                type: 'CHANGE_ADD_STATUS'
+            })
+        }
+    }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

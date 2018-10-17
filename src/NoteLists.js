@@ -6,6 +6,10 @@ class NoteLists extends Component {
         this.props.viewForm();
         this.props.infoform(this.props.dataFirebase);
     }
+
+    deleteData = () => {
+        this.props.getDeleteData(this.props.dataFirebase.id)
+    }
     
     render() {
         return (
@@ -18,7 +22,7 @@ class NoteLists extends Component {
                             </a>
                             <div className="btn-group float-right" >
                                 <button className="btn btn-outline-info" onClick={this.editForm} >Edit</button>
-                                <button className="btn btn-outline-danger" >Remove</button>
+                                <button className="btn btn-outline-danger" onClick = {this.deleteData} >Remove</button>
                             </div>
                         </h5>
                     </div>
@@ -50,6 +54,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch({
                 type: 'GET_DATA',
                 item: item
+            })
+        },
+        getDeleteData: (id) => {
+            dispatch({
+                type: 'DELETE',
+                id
             })
         }
     }

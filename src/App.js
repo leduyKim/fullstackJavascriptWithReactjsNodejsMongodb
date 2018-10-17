@@ -39,12 +39,14 @@ class App extends Component {
         return <NoteLists key = {key}  dataFirebase = {element} ></NoteLists>
       })
     }
+    
   }
     
   viewForm = () => {
     if(this.props.isEdit) {
       return <NoteForm infoForm = {this.props.infoForm} ></NoteForm>
     }
+      
   }
 
   componentWillMount() {
@@ -73,8 +75,21 @@ class App extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     isEdit: state.hasForm.isEdit,
-    infoForm: state.hasForm.dataElement
+    infoForm: state.hasForm.dataElement,
+    isAddNote: state.addDataReducer.isAddNote
   }
 }
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    viewFormEdit: () => {
+      dispatch({
+        type: 'CHANGE_EDIT_STATUS'
+      })
+    }
+  }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
