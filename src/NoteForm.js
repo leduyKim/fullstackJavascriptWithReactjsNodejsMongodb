@@ -7,9 +7,21 @@ class NoteForm extends Component {
         super(props);
         this.state = {
             titleNote: '',
-            contentNote: ''
+            contentNote: '',
+            id: ''
         }
         this.addData = this.addData.bind(this);
+    }
+
+    componentWillMount() {
+        if(this.props.infoForm) {
+            this.setState({
+                titleNote: this.props.infoForm.title,
+                contentNote: this.props.infoForm.content,
+                id: this.props.infoForm.id
+            })
+            
+        }
     }
 
     isChange = (event) => {
@@ -21,11 +33,19 @@ class NoteForm extends Component {
     }
 
     addData = () => {
-        var item = {};
-        item.id = v1();
-        item.title = this.state.titleNote;
-        item.content = this.state.contentNote;
-        this.props.addDataStore(item);
+        if(this.state.id) {
+            let editObject = {};
+            editObject.id = this.state.id;
+            editObject.title = this.state.titleNote;
+            editObject.content = this.state.contentNote;
+            this.props.editDataStore(editObject);
+        } else {
+            var item = {};
+            item.id = v1();
+            item.title = this.state.titleNote;
+            item.content = this.state.contentNote;
+            this.props.addDataStore(item);
+        }
     }
 
 render() {
@@ -42,7 +62,7 @@ render() {
                     <label htmlFor="contentNote">Content Note</label>
                     <textarea required onChange={(event) => this.isChange(event)} className="form-control" name="contentNote" id="contentNote" defaultValue={this.props.infoForm.content} />
                 </div>
-                <button type="reset" onClick={this.addData} className="btn btn-primary btn-block" style={{ borderRadius: 20 }}>Save</button>
+                <button type="reset" onClick={() => this.addData()} className="btn btn-primary btn-block" style={{ borderRadius: 20 }}>Save</button>
             </form>
         </div>
     )
@@ -50,7 +70,7 @@ render() {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    test: state.test
+    editItem: state.hasForm.dataElement
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -58,6 +78,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         addDataStore: (item) => {
             dispatch({
                 type: 'ADD_DATA',
+                item: item
+            })
+        },
+        editDataStore: (item) => {
+            dispatch({
+                type: 'EDIT',
                 item: item
             })
         }
